@@ -1,0 +1,441 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Yet Another Node.js Application API",
+        "description": "Yet Another Node.js Application API",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:8088",
+    "tags": [
+        {
+            "name": "Users",
+            "description": "API for users in the system"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/user/api/create": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Đăng ký 1 user",
+                "description": "Create new user in system",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "User that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New user is created",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/api": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Lấy tất cả thông tin user trong database",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Users"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/api/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Id của user muốn tìm kiếm",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Lấy thông tin của user theo id truyền vào",
+                "responses": {
+                    "200": {
+                        "description": "User is found",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found with id ..."
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Xóa user theo id truyền vào",
+                "tags": [
+                    "Users"
+                ],
+                "responses": {
+                    "204": {
+                        "description": ""
+                    }
+                }
+            },
+            "put": {
+                "summary": "Cập nhật thông tin user theo id truyền vào",
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "Những thông tin muốn cập nhật lại",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User is updated",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found with id ... to update"
+                    }
+                }
+            }
+        },
+        "/user/api/role/create": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Đăng ký 1 role ( phân quyền )",
+                "description": "Create new role of user in system",
+                "parameters": [
+                    {
+                        "name": "role",
+                        "in": "body",
+                        "description": "Role that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/Role"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New role is created",
+                        "schema": {
+                            "$ref": "#/definitions/Role"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/api/role": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Lấy thông tin tất cả các role ( phân quyền )",
+                "description": "Get all role of user in system",
+                "parameters": [
+                    {
+                        "name": "role",
+                        "in": "body",
+                        "description": "Role that we want to fetch",
+                        "schema": {
+                            "$ref": "#/definitions/Role"
+                        }
+                    }
+                ]
+            }
+        },
+        "/user/api/role/{id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Lấy thông tin 1 role theo id ( phân quyền )",
+                "description": "Get a role of user in system",
+                "parameters": [
+                    {
+                        "name": "role",
+                        "in": "body",
+                        "description": "Role that we want to fetch",
+                        "schema": {
+                            "$ref": "#/definitions/Role"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/Role"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Cập nhật thông tin 1 role theo id ( phân quyền )",
+                "description": "Update a role of user in system",
+                "parameters": [
+                    {
+                        "name": "role",
+                        "in": "body",
+                        "description": "Role that we want to update",
+                        "schema": {
+                            "$ref": "#/definitions/Role"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Role is updated",
+                        "schema": {
+                            "$ref": "#/definitions/Role"
+                        }
+                    },
+                    "404": {
+                        "description": "Role not found with id ... to update"
+                    }
+                }
+            }
+        },
+        "/customer/api/create": {
+            "post": {
+                "tags": [
+                    "Customers"
+                ],
+                "summary": "Đăng ký 1 customer",
+                "description": "Create new customer in system",
+                "parameters": [
+                    {
+                        "name": "customer",
+                        "in": "body",
+                        "description": "customer that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/Customer"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New customer is created",
+                        "schema": {
+                            "$ref": "#/definitions/Customer"
+                        }
+                    }
+                }
+            }
+        },
+        "/customer/api": {
+            "get": {
+                "tags": [
+                    "Customers"
+                ],
+                "summary": "Lấy thông tin tất cả customer",
+                "description": "Get a customer of user in system",
+                "parameters": [
+                    {
+                        "name": "customer",
+                        "in": "body",
+                        "description": "Customer that we want to fetch",
+                        "schema": {
+                            "$ref": "#/definitions/Customer"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "array": {
+                            "schema": {
+                                "$ref": "#/definitions/Customer"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/customer/api/{id}": {
+            "get": {
+                "tags": [
+                    "Customers"
+                ],
+                "summary": "Lấy thông tin 1 customer theo id",
+                "description": "Get a customer of user in system",
+                "parameters": [
+                    {
+                        "name": "customer",
+                        "in": "body",
+                        "description": "Customer that we want to fetch",
+                        "schema": {
+                            "$ref": "#/definitions/Customer"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/Customer"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Customers"
+                ],
+                "summary": "Cập nhật thông tin 1 customer theo id",
+                "description": "Update a customer in system",
+                "parameters": [
+                    {
+                        "name": "Customer",
+                        "in": "body",
+                        "description": "Customer that we want to update",
+                        "schema": {
+                            "$ref": "#/definitions/Customer"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Customer is updated",
+                        "schema": {
+                            "$ref": "#/definitions/Customer"
+                        }
+                    },
+                    "404": {
+                        "description": "Customer not found with id ... to update"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Xóa customer theo id truyền vào",
+                "tags": [
+                    "Customers"
+                ],
+                "responses": {
+                    "204": {
+                        "description": ""
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "User": {
+            "required": [
+                "UserName",
+                "Password",
+                "Email",
+                "Roles"
+            ],
+            "properties": {
+                "UserName": {
+                    "type": "string",
+                    "unique": true
+                },
+                "Email": {
+                    "type": "string",
+                    "unique": true
+                },
+                "Password": {
+                    "type": "string"
+                },
+                "Roles": {
+                    "type": "string"
+                },
+                "Date": {
+                    "type": "Date"
+                }
+            }
+        },
+        "Role": {
+            "required": "RoleName",
+            "properties": {
+                "RoleName": {
+                    "type": "string",
+                    "unique": true
+                }
+            }
+        },
+        "Customer": {
+            "required": [
+                "FullName",
+                "PhoneNumber"
+            ],
+            "properties": {
+                "FullName": {
+                    "type": "string"
+                },
+                "Address": {
+                    "type": "string"
+                },
+                "PhoneNumber": {
+                    "type": "string"
+                },
+                "Age": {
+                    "type": "number"
+                }
+            }
+        }
+    }
+}
