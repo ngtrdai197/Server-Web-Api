@@ -7,6 +7,7 @@ const role = require('../controllers/role.controller');
 router.post('/api/role/create', role.create);
 router.get('/api/role', role.findAll);
 router.get('/api/role/:id', role.findOne);
+router.delete('/api/role/:id', role.delete);
 // end role of user
 
 
