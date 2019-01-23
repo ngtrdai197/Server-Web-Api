@@ -9,7 +9,7 @@
             "url": "https://opensource.org/licenses/MIT"
         }
     },
-    "host": "https://server-web-api.herokuapp.com",
+    "host": "localhost:8088",
     "tags": [
         {
             "name": "Users",
@@ -17,7 +17,7 @@
         }
     ],
     "schemes": [
-        "https"
+        "http"
     ],
     "consumes": [
         "application/json"
