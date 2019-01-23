@@ -16,11 +16,11 @@ const mongoose = require('mongoose');
 
 const dbConnection = () => {
     mongoose.Promise = global.Promise;
-    // const url = 'mongodb://ngtrdai197:anhdaii1@ds211275.mlab.com:11275/server-web-api'
-    // mongoose.connect('', { useNewUrlParser: true }).then(() => {
-    // }).catch(() => {
-    //     process.exit();
-    // })
+    const url = 'mongodb://ngtrdai197:anhdaii1@ds239911.mlab.com:39911/dbtest'
+    mongoose.connect(url, { useNewUrlParser: true }).then(() => {
+    }).catch(() => {
+        process.exit();
+    })
 }
 
 module.exports = { dbConnection: dbConnection };
