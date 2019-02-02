@@ -13,11 +13,9 @@ const UserSchema = new Schema({
         type: String,
         min: 8,
         max: 24,
-        required: true
     },
     Email: {
         type: String,
-        required: true,
         trim: true,
         match: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
     },
@@ -26,6 +24,9 @@ const UserSchema = new Schema({
         type: Date,
         required: true,
         default: Date.now()
-    }
+    },
+    Gender: String,
+    FullName: { type: String, trim: true },
+    Url: { type: String, trim: true }
 });
 module.exports = mongoose.model('Users', UserSchema);
