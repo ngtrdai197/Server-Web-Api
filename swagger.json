@@ -14,6 +14,10 @@
         {
             "name": "Users",
             "description": "API for users in the system"
+        },
+        {
+            "name": "Posts",
+            "description": "API for posts in the system"
         }
     ],
     "schemes": [
@@ -125,18 +129,18 @@
                         "description": "User not found with id ..."
                     }
                 }
-            },
-            "delete": {
-                "summary": "Xóa user theo id truyền vào",
-                "tags": [
-                    "Users"
-                ],
-                "responses": {
-                    "204": {
-                        "description": ""
-                    }
+            }
+        },
+        "/user/api/update/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Id của bài đăng muốn cập nhật",
+                    "type": "string"
                 }
-            },
+            ],
             "put": {
                 "summary": "Cập nhật thông tin user theo id truyền vào",
                 "tags": [
@@ -161,6 +165,162 @@
                     },
                     "404": {
                         "description": "User not found with id ... to update"
+                    }
+                }
+            }
+        },
+        "/user/api/delete/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Id của bài đăng muốn cập nhật",
+                    "type": "string"
+                }
+            ],
+            "delete": {
+                "summary": "Xóa user theo id truyền vào",
+                "tags": [
+                    "Users"
+                ],
+                "responses": {
+                    "204": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/post/api": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Lấy tất cả thông tin bài đăng trong database",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Post"
+                        }
+                    }
+                }
+            }
+        },
+        "/post/api/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Id của bài đăng muốn tìm kiếm",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Lấy thông tin của bài đăng theo id truyền vào",
+                "responses": {
+                    "200": {
+                        "description": "Post is found",
+                        "schema": {
+                            "$ref": "#/definitions/Post"
+                        }
+                    },
+                    "404": {
+                        "description": "Post not found with id ..."
+                    }
+                }
+            }
+        },
+        "/post/api/update/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Id của bài đăng muốn tìm kiếm",
+                    "type": "string"
+                }
+            ],
+            "put": {
+                "summary": "Cập nhật thông tin bài đăng theo id truyền vào",
+                "tags": [
+                    "Posts"
+                ],
+                "parameters": [
+                    {
+                        "name": "post",
+                        "in": "body",
+                        "description": "Những thông tin muốn cập nhật lại",
+                        "schema": {
+                            "$ref": "#/definitions/Post"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Post is updated",
+                        "schema": {
+                            "$ref": "#/definitions/Post"
+                        }
+                    },
+                    "404": {
+                        "description": "Post not found with id ... to update"
+                    }
+                }
+            }
+        },
+        "/post/api/create": {
+            "post": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Đăng ký 1 bài đăng",
+                "description": "Create new post in system",
+                "parameters": [
+                    {
+                        "name": "post",
+                        "in": "body",
+                        "description": "Post that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/Post"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New post is created",
+                        "schema": {
+                            "$ref": "#/definitions/Post"
+                        }
+                    }
+                }
+            }
+        },
+        "/post/api/delete/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Id của bài đăng muốn tìm kiếm",
+                    "type": "string"
+                }
+            ],
+            "delete": {
+                "summary": "Xóa Post theo id truyền vào",
+                "tags": [
+                    "Posts"
+                ],
+                "responses": {
+                    "204": {
+                        "description": ""
                     }
                 }
             }
@@ -206,17 +366,46 @@
                 }
             }
         },
-        "Post":{
-            "required":[
-                "PostName", 
+        "Post": {
+            "required": [
+                "PostName",
                 "Price",
                 "Address",
                 "PhoneNumber",
                 "UserId",
                 "CategoryChildId"
             ],
-            "properties":{
-                
+            "properties": {
+                "PostName": {
+                    "type": "string"
+                },
+                "PostUrl": {
+                    "type": "string"
+                },
+                "Status": {
+                    "type": "boolean"
+                },
+                "Price": {
+                    "type": "number"
+                },
+                "Address": {
+                    "type": "string"
+                },
+                "PostDate": {
+                    "type": "date"
+                },
+                "PhoneNumber": {
+                    "type": "string"
+                },
+                "Description": {
+                    "type": "string"
+                },
+                "UserId": {
+                    "type": "string"
+                },
+                "CategoryChildId": {
+                    "type": "string"
+                }
             }
         }
     }
