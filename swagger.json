@@ -205,6 +205,19 @@
                     "type": "string"
                 }
             }
+        },
+        "Post":{
+            "required":[
+                "PostName", 
+                "Price",
+                "Address",
+                "PhoneNumber",
+                "UserId",
+                "CategoryChildId"
+            ],
+            "properties":{
+                
+            }
         }
     }
 }

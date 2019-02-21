@@ -9,6 +9,8 @@ exports.login = (req, res) => {
                 const token = jwtToken.sign({ sub: _user._id }, jwt.jwt_Secret, { expiresIn: '3600s' });
                 const data = { FullName: _user.FullName, Id: _user._id }
                 return res.status(200).json({ data, token });
+            } else {
+                res.stustus(404).send({ status: false })
             }
         }
     })
