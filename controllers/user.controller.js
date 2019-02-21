@@ -19,7 +19,7 @@ exports.delete = (req, res) => {
             }
             return res.status(500).send({ message: err.message });
         }
-        return res.status(204).send({ status: true });
+        return res.status(200).send({ status: true });
     })
 };
 exports.findOne = (req, res) => {

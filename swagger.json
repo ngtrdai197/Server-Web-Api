@@ -26,7 +26,7 @@
         "application/json"
     ],
     "paths": {
-        "/user/auth/login": {
+        "/user/api/auth/login": {
             "post": {
                 "tags": [
                     "Users"
