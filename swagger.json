@@ -26,6 +26,33 @@
         "application/json"
     ],
     "paths": {
+        "/user/auth/login": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Đăng nhập vào hệ thông",
+                "description": "Người dùng đăng nhập vào hệ thống",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "Dữ liệu cần truyền vào",
+                        "schema": {
+                            "$ref": "#/definitions/Login"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Trả về FullName + ID + token"
+                    }
+                }
+            }
+        },
         "/user/api/create": {
             "post": {
                 "tags": [
@@ -143,7 +170,8 @@
         "User": {
             "required": [
                 "PhoneNumber",
-                "Password"
+                "Password",
+                "FullName"
             ],
             "properties": {
                 "PhoneNumber": {
@@ -156,11 +184,26 @@
                 "Date": {
                     "type": "Date"
                 },
-                "FullName":{
-                    "type":"string"
+                "FullName": {
+                    "type": "string"
                 },
-                "Url":{"type":"string"},
-                "Address":{"type":"string"}
+                "Url": {
+                    "type": "string"
+                },
+                "Address": {
+                    "type": "string"
+                }
+            }
+        },
+        "Login": {
+            "properties": {
+                "PhoneNumber": {
+                    "type": "string",
+                    "unique": true
+                },
+                "Password": {
+                    "type": "string"
+                }
             }
         }
     }
