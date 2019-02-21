@@ -8,7 +8,7 @@ exports.login = (req, res) => {
             if (req.body.PhoneNumber === _user.PhoneNumber && req.body.Password === _user.Password) {
                 const token = jwtToken.sign({ sub: _user._id }, jwt.jwt_Secret, { expiresIn: '3600s' });
                 const data = { FullName: _user.FullName, Id: _user._id }
-                res.status(200).json({ data, token });
+                return res.status(200).json({ status: true, data, token });
             }
         }
         res.status(404).send({ status: false });
