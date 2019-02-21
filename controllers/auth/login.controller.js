@@ -11,6 +11,6 @@ exports.login = (req, res) => {
                 return res.status(200).json({ status: true, data, token });
             }
         }
-        return res.status(404).send({ status: false });
+        return res.status(404).send();
     })
 }
