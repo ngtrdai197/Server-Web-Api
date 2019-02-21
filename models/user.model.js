@@ -15,10 +15,9 @@ const UserSchema = new Schema({
     },
     Date: {
         type: Date,
-        required: true,
         default: Date.now
     },
-    FullName: { type: String, trim: true },
+    FullName: { type: String, required: true, trim: true },
     Url: { type: String, trim: true },
     Address: {
         type: String
