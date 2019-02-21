@@ -3,7 +3,7 @@ const User = require('../models/user.model');
 exports.create = (req, res) => {
     const user = new User(req.body);
     user.save().then(_user => {
-        return res.status(200).send(_user);
+        return res.status(200).send({ status: true, data: _user });
     }).catch(err => {
         return res.status(500).send({ message: err.message });
     })
