@@ -5,7 +5,6 @@ const app = express();
 const passport = require('passport');
 
 // begin router
-const customer = require('./routers/customer.router');
 const user = require('./routers/user.router');
 const mailer = require('./routers/nodemailer.router');
 // end router
@@ -35,7 +34,6 @@ const swaggerDocument = require('./swagger.json');
 
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use('/customer', customer);
 app.use('/user', user);
 app.use('/mail', mailer);
 

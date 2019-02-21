@@ -21,23 +21,23 @@ exports.delete = (req, res) => {
     });
 };
 exports.findOne = (req, res) => {
-    User.findById(req.params.id).select('-_id -__v -Password') // ẩn fields: _id, __v, Password của user
-        .populate('Roles', '-_id -__v') // ẩn fields: _id, __v của Roles trong model User
-        .exec((err, user) => {
-            if (err) return res.status(404).send({ message: 'User not found with id:' + req.params.id });
-            return res.status(200).send(user);
-        }).catch(err => {
+    User.findById(req.params.id, '-Password -__v').exec((err, user) => {
+        if (err) {
+            if (err.kind === 'ObjectId') {
+                return res.status(404).send({ message: 'User not found with id:' + req.params.id });
+            }
             return res.status(500).send({ message: err.message });
-        })
+        }
+        return res.status(200).send(user);
+    })
 };
 
 exports.findAll = (req, res) => {
-    User.find().select('-_id -__v -Password').populate('Roles', '-_id -__v')
-        .then(users => {
-            res.status(200).send(users);
-        }).catch(err => {
-            res.status(500).send({ message: err.message });
-        })
+    User.find().then(users => {
+        res.status(200).send(users);
+    }).catch(err => {
+        res.status(500).send({ message: err.message });
+    })
 };
 
 exports.update = (req, res) => {
