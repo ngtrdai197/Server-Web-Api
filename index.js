@@ -8,6 +8,12 @@ const passport = require('passport');
 const user = require('./routers/user.router');
 const mailer = require('./routers/nodemailer.router');
 const post = require('./routers/post.router');
+const categoryparent = require('./routers/category-parent.router');
+const categorychild = require('./routers/category-child.router');
+const image = require('./routers/upload.router');
+
+
+
 // end router
 const database = require('./config/mongodb.config');
 // cấu hình stragety
@@ -32,6 +38,9 @@ const swaggerDocument = require('./swagger.json');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/user', user);
 app.use('/post', post);
+app.use('/categoryparent', categoryparent);
+app.use('/categorychild', categorychild);
+app.use('/image', image);
 
 
 // nodemailer

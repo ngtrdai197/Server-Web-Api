@@ -137,7 +137,7 @@
                     "name": "id",
                     "in": "path",
                     "required": true,
-                    "description": "Id của bài đăng muốn cập nhật",
+                    "description": "Id của danh mục con muốn cập nhật",
                     "type": "string"
                 }
             ],
@@ -175,7 +175,7 @@
                     "name": "id",
                     "in": "path",
                     "required": true,
-                    "description": "Id của bài đăng muốn cập nhật",
+                    "description": "Id của danh mục con muốn cập nhật",
                     "type": "string"
                 }
             ],
@@ -196,7 +196,7 @@
                 "tags": [
                     "Posts"
                 ],
-                "summary": "Lấy tất cả thông tin bài đăng trong database",
+                "summary": "Lấy tất cả thông tin danh mục con trong database",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -213,7 +213,7 @@
                     "name": "id",
                     "in": "path",
                     "required": true,
-                    "description": "Id của bài đăng muốn tìm kiếm",
+                    "description": "Id của danh mục con muốn tìm kiếm",
                     "type": "string"
                 }
             ],
@@ -221,7 +221,7 @@
                 "tags": [
                     "Posts"
                 ],
-                "summary": "Lấy thông tin của bài đăng theo id truyền vào",
+                "summary": "Lấy thông tin của danh mục con theo id truyền vào",
                 "responses": {
                     "200": {
                         "description": "Post is found",
@@ -241,12 +241,12 @@
                     "name": "id",
                     "in": "path",
                     "required": true,
-                    "description": "Id của bài đăng muốn tìm kiếm",
+                    "description": "Id của danh mục con muốn tìm kiếm",
                     "type": "string"
                 }
             ],
             "put": {
-                "summary": "Cập nhật thông tin bài đăng theo id truyền vào",
+                "summary": "Cập nhật thông tin danh mục con theo id truyền vào",
                 "tags": [
                     "Posts"
                 ],
@@ -317,6 +317,274 @@
                 "summary": "Xóa Post theo id truyền vào",
                 "tags": [
                     "Posts"
+                ],
+                "responses": {
+                    "204": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/categorychild/api": {
+            "get": {
+                "tags": [
+                    "CategoryChilds"
+                ],
+                "summary": "Lấy tất cả thông tin danh mục con trong database",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/CategoryChild"
+                        }
+                    }
+                }
+            }
+        },
+        "/categorychild/api/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Id của danh mục con muốn tìm kiếm",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "CategoryChilds"
+                ],
+                "summary": "Lấy thông tin của danh mục con theo id truyền vào",
+                "responses": {
+                    "200": {
+                        "description": "CategoryChild is found",
+                        "schema": {
+                            "$ref": "#/definitions/CategoryChild"
+                        }
+                    },
+                    "404": {
+                        "description": "CategoryChild not found with id ..."
+                    }
+                }
+            }
+        },
+        "/categorychild/api/update/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Id của danh mục con muốn tìm kiếm",
+                    "type": "string"
+                }
+            ],
+            "put": {
+                "summary": "Cập nhật thông tin danh mục con theo id truyền vào",
+                "tags": [
+                    "CategoryChilds"
+                ],
+                "parameters": [
+                    {
+                        "name": "CategoryChild",
+                        "in": "body",
+                        "description": "Những thông tin muốn cập nhật lại",
+                        "schema": {
+                            "$ref": "#/definitions/CategoryChild"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CategoryChild is updated",
+                        "schema": {
+                            "$ref": "#/definitions/CategoryChild"
+                        }
+                    },
+                    "404": {
+                        "description": "CategoryChild not found with id ... to update"
+                    }
+                }
+            }
+        },
+        "/categorychild/api/create": {
+            "post": {
+                "tags": [
+                    "CategoryChilds"
+                ],
+                "summary": "Đăng ký 1 danh mục con",
+                "description": "Create new CategoryChild in system",
+                "parameters": [
+                    {
+                        "name": "CategoryChild",
+                        "in": "body",
+                        "description": "CategoryChild that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/CategoryChild"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New CategoryChild is created",
+                        "schema": {
+                            "$ref": "#/definitions/CategoryChild"
+                        }
+                    }
+                }
+            }
+        },
+        "/categorychild/api/delete/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Id của danh mục con muốn tìm kiếm",
+                    "type": "string"
+                }
+            ],
+            "delete": {
+                "summary": "Xóa CategoryChild theo id truyền vào",
+                "tags": [
+                    "CategoryChilds"
+                ],
+                "responses": {
+                    "204": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/categoryparent/api": {
+            "get": {
+                "tags": [
+                    "CategoryParents"
+                ],
+                "summary": "Lấy tất cả thông tin danh mục cha trong database",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/CategoryParent"
+                        }
+                    }
+                }
+            }
+        },
+        "/categoryparent/api/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Id của danh mục cha muốn tìm kiếm",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "CategoryParents"
+                ],
+                "summary": "Lấy thông tin của danh mục cha theo id truyền vào",
+                "responses": {
+                    "200": {
+                        "description": "CategoryParent is found",
+                        "schema": {
+                            "$ref": "#/definitions/CategoryParent"
+                        }
+                    },
+                    "404": {
+                        "description": "CategoryParent not found with id ..."
+                    }
+                }
+            }
+        },
+        "/categoryparent/api/update/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Id của danh mục cha muốn tìm kiếm",
+                    "type": "string"
+                }
+            ],
+            "put": {
+                "summary": "Cập nhật thông tin danh mục cha theo id truyền vào",
+                "tags": [
+                    "CategoryParents"
+                ],
+                "parameters": [
+                    {
+                        "name": "CategoryParent",
+                        "in": "body",
+                        "description": "Những thông tin muốn cập nhật lại",
+                        "schema": {
+                            "$ref": "#/definitions/CategoryParent"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CategoryParent is updated",
+                        "schema": {
+                            "$ref": "#/definitions/CategoryParent"
+                        }
+                    },
+                    "404": {
+                        "description": "CategoryParent not found with id ... to update"
+                    }
+                }
+            }
+        },
+        "/categoryparent/api/create": {
+            "post": {
+                "tags": [
+                    "CategoryParents"
+                ],
+                "summary": "Đăng ký 1 danh mục con",
+                "description": "Create new CategoryParent in system",
+                "parameters": [
+                    {
+                        "name": "CategoryParent",
+                        "in": "body",
+                        "description": "CategoryParent that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/CategoryParent"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New CategoryParent is created",
+                        "schema": {
+                            "$ref": "#/definitions/CategoryParent"
+                        }
+                    }
+                }
+            }
+        },
+        "/categoryparent/api/delete/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Id của danh mục cha muốn tìm kiếm",
+                    "type": "string"
+                }
+            ],
+            "delete": {
+                "summary": "Xóa CategoryParent theo id truyền vào",
+                "tags": [
+                    "CategoryParents"
                 ],
                 "responses": {
                     "204": {
@@ -404,6 +672,36 @@
                     "type": "string"
                 },
                 "CategoryChildId": {
+                    "type": "string"
+                }
+            }
+        },
+        "CategoryChild": {
+            "required": [
+                "CategoryChildName",
+                "CategoryParentId"
+            ],
+            "properties": {
+                "CategoryChildName": {
+                    "type": "string"
+                },
+                "CategoryChildUrl": {
+                    "type": "string"
+                },
+                "CategoryParent": {
+                    "type": "string"
+                }
+            }
+        },
+        "CategoryParent": {
+            "required": [
+                "CategoryParentName"
+            ],
+            "properties": {
+                "CategoryParentName": {
+                    "type": "string"
+                },
+                "CategoryParentUrl": {
                     "type": "string"
                 }
             }
