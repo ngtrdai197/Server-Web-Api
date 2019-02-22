@@ -37,8 +37,8 @@ exports.create = (req, res) => {
 };
 
 exports.findImage = (req, res) => {
-    File.find({}).exec((err, data) => {
-        if (err) {
+    File.find({}).exec((err, data)=>{
+        if(err){
             console.log(err);
             return;
         }
@@ -47,7 +47,7 @@ exports.findImage = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    Post.find({ _id: req.params.id }).then(posts => {
+    Post.find({_id:req.params.id}).then(posts => {
         return res.status(200).send({ status: true, data: posts });
     }).catch(err => {
         return res.status(500).send({ message: err.message });

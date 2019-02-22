@@ -32,9 +32,17 @@ exports.findOne = (req, res) => {
 };
 
 exports.findChildByParentId = (req, res) => {
-    CategoryParent.findById({_id: req.params.id}).select().populate('CategoryChilds','-Posts -__v').exec().then(data => {
-        console.log(data);
-    })
+    CategoryParent.findById({ _id: req.params.id }).select()
+        .populate({ path: 'CategoryChilds', populate: { path: 'Posts' } })
+        .exec((err, categoryChilds) => {
+            if (err) {
+                if (err.kind === 'ObjectId') {
+                    return res.status(404).send({ message: 'CategoryParent not found with id:' + req.params.id });
+                }
+                return res.status(500).send({ message: err.message });
+            }
+            return res.status(200).send(categoryChilds);
+        })
 }
 
 
