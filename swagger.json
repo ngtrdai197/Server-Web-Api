@@ -503,6 +503,34 @@
                 }
             }
         },
+        "/categoryparent/api/query/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Id của danh mục cha muốn tìm kiếm",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "CategoryParents"
+                ],
+                "summary": "Lấy thông tin của danh mục cha theo id truyền vào",
+                "responses": {
+                    "200": {
+                        "description": "CategoryParent is found",
+                        "schema": {
+                            "$ref": "#/definitions/CategoryParent"
+                        }
+                    },
+                    "404": {
+                        "description": "CategoryParent not found with id ..."
+                    }
+                }
+            }
+        },
         "/categoryparent/api/update/{id}": {
             "parameters": [
                 {
@@ -546,7 +574,7 @@
                 "tags": [
                     "CategoryParents"
                 ],
-                "summary": "Đăng ký 1 danh mục con",
+                "summary": "Đăng ký 1 danh mục cha",
                 "description": "Create new CategoryParent in system",
                 "parameters": [
                     {
