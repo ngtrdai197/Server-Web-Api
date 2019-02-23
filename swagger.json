@@ -18,6 +18,18 @@
         {
             "name": "Posts",
             "description": "API for posts in the system"
+        },
+        {
+            "name": "CategoryParents",
+            "description": "API for CategoryParents in the system"
+        },
+        {
+            "name": "CategoryChilds",
+            "description": "API for CategoryChilds in the system"
+        },
+        {
+            "name": "Files",
+            "description": "API for Files in the system"
         }
     ],
     "schemes": [
@@ -615,8 +627,24 @@
                     "CategoryParents"
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": ""
+                    }
+                }
+            }
+        },
+        "/image/upload": {
+            "post": {
+                "summary": "Upload ảnh",
+                "tags": [
+                    "Files"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Dữ liệu trả về khi upload ảnh thành công",
+                        "schema": {
+                            "$ref": "#/definitions/File"
+                        }
                     }
                 }
             }
@@ -731,6 +759,23 @@
                 },
                 "CategoryParentUrl": {
                     "type": "string"
+                }
+            }
+        },
+        "File": {
+            "required": [
+                "FileName",
+                "PostId"
+            ],
+            "properties": {
+                "FileName": {
+                    "type": "string"
+                },
+                "PostId": {
+                    "type": "string"
+                },
+                "UploadDate": {
+                    "type": "Date"
                 }
             }
         }

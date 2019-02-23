@@ -1,6 +1,6 @@
 const Post = require('../models/Post.model');
 const CategoryChild = require('../models/CategoryChild.model');
-const File = require('../models/File.model');
+const Files = require('../models/File.model');
 
 exports.create = (req, res) => {
     // const post = new Post(req.body);
@@ -37,8 +37,8 @@ exports.create = (req, res) => {
 };
 
 exports.findImage = (req, res) => {
-    File.find({}).exec((err, data)=>{
-        if(err){
+    Files.find({ FileOriginal: req.params.fileName }).exec((err, data) => {
+        if (err) {
             console.log(err);
             return;
         }
@@ -46,8 +46,9 @@ exports.findImage = (req, res) => {
     })
 };
 
+// lấy tất cả các bài đăng theo id
 exports.findAll = (req, res) => {
-    Post.find({_id:req.params.id}).then(posts => {
+    Post.find({ _id: req.params.id }).then(posts => {
         return res.status(200).send({ status: true, data: posts });
     }).catch(err => {
         return res.status(500).send({ message: err.message });
