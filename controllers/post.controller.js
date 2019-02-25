@@ -3,6 +3,7 @@ const CategoryChild = require('../models/CategoryChild.model');
 const Files = require('../models/File.model');
 
 exports.create = (req, res) => {
+    // console.log(req.body);
     CategoryChild.findById({ _id: req.body.CategoryChildId }).exec((err, result) => {
         if (err) {
             if (err.kind === 'ObjectId') {
@@ -12,6 +13,7 @@ exports.create = (req, res) => {
 
         } else {
             // danh muc con co ton tai trong db
+            const post = new Post(req.body);
             post.save().then(_post => {
                 if (_post) {
                     result.Posts.push(_post._id);
