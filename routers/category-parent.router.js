@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const CategoryParent = require('../controllers/category-parent.controller');
 
-
 router.get('/api', CategoryParent.findAll);
 router.get('/api/:id', CategoryParent.findOne);
 router.get('/api/query/:id', CategoryParent.findChildByParentId);

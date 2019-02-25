@@ -9,7 +9,7 @@
             "url": "https://opensource.org/licenses/MIT"
         }
     },
-    "host": "https://server-web-api.herokuapp.com",
+    "host": "server-web-api.herokuapp.com",
     "tags": [
         {
             "name": "Users",
@@ -30,6 +30,10 @@
         {
             "name": "Files",
             "description": "API for Files in the system"
+        },
+        {
+            "name": "Areas",
+            "description": "API for Areas in the system"
         }
     ],
     "schemes": [
@@ -648,6 +652,47 @@
                     }
                 }
             }
+        },
+        "/area/api": {
+            "get": {
+                "summary": "Lấy danh sách tất cả các khu vực",
+                "tags": [
+                    "Areas"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Dữ liệu trả về danh sách tất cả các khu vực hiện có",
+                        "schema": {
+                            "$ref": "#/definitions/Area"
+                        }
+                    }
+                }
+            }
+        },
+        "/area/api/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Id của khu vực muốn tìm kiếm",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "summary": "Lấy danh sách khu vực muốn tìm kiếm theo id",
+                "tags": [
+                    "Areas"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Dữ liệu trả về danh sách tất cả các khu vực hiện có",
+                        "schema": {
+                            "$ref": "#/definitions/Area"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -697,7 +742,8 @@
                 "Address",
                 "PhoneNumber",
                 "UserId",
-                "CategoryChildId"
+                "CategoryChildId",
+                "AreaId"
             ],
             "properties": {
                 "PostName": {
@@ -725,6 +771,9 @@
                     "type": "string"
                 },
                 "UserId": {
+                    "type": "string"
+                },
+                "AreaId": {
                     "type": "string"
                 },
                 "CategoryChildId": {
@@ -776,6 +825,16 @@
                 },
                 "UploadDate": {
                     "type": "Date"
+                }
+            }
+        },
+        "Area": {
+            "required": [
+                "AreaName"
+            ],
+            "properties": {
+                "AreaName": {
+                    "type": "string"
                 }
             }
         }

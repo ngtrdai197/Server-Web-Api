@@ -20,14 +20,14 @@ exports.findAll = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-    CategoryParent.findById(req.params._id, '-__v').exec((err, categoryParents) => {
+    CategoryParent.findById(req.params.id, '-__v').exec((err, categoryParent) => {
         if (err) {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({ message: 'CategoryParent not found with id:' + req.params.id });
             }
             return res.status(500).send({ message: err.message });
         }
-        return res.status(200).send(categoryParents);
+        return res.status(200).send(categoryParent);
     })
 };
 
@@ -43,8 +43,7 @@ exports.findChildByParentId = (req, res) => {
             }
             return res.status(200).send(categoryChilds);
         })
-}
-
+};
 
 exports.update = (req, res) => {
     CategoryParent.findByIdAndUpdate(req.params.id, req.body, { new: true }).exec((err, categoryParent) => {

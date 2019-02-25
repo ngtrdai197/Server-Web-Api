@@ -3,14 +3,6 @@ const CategoryChild = require('../models/CategoryChild.model');
 const Files = require('../models/File.model');
 
 exports.create = (req, res) => {
-    // const post = new Post(req.body);
-    // if(req.files){
-    //     console.log('co anh');
-    //     return;
-    // }else{
-    //     console.log('ko co');
-    //     return;
-    // }
     CategoryChild.findById({ _id: req.body.CategoryChildId }).exec((err, result) => {
         if (err) {
             if (err.kind === 'ObjectId') {
@@ -34,16 +26,6 @@ exports.create = (req, res) => {
             })
         }
     });
-};
-
-exports.findImage = (req, res) => {
-    Files.find({ FileOriginal: req.params.fileName }).exec((err, data) => {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        res.send(data)
-    })
 };
 
 // lấy tất cả các bài đăng theo id

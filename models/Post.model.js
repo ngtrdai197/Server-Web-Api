@@ -13,6 +13,7 @@ const PostSchema = new Schema({
     PhoneNumber: { type: String, required: true, },
     Description: { type: String },
     UserId: { type: Schema.Types.ObjectId, ref: 'Users', required: true },
+    AreaId: { type: Schema.Types.ObjectId, ref: 'Areas', required: true },
     CategoryChildId: { type: Schema.Types.ObjectId, ref: 'CategoryChilds', required: true },
     FileId: [{ type: Schema.Types.ObjectId, ref: 'Files' }],
 });
