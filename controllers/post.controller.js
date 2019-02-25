@@ -30,9 +30,9 @@ exports.create = (req, res) => {
     });
 };
 
-// lấy tất cả các bài đăng theo id
+// lấy tất cả các bài đăng trong db
 exports.findAll = (req, res) => {
-    Post.find({ _id: req.params.id }).then(posts => {
+    Post.find().then(posts => {
         return res.status(200).send({ status: true, data: posts });
     }).catch(err => {
         return res.status(500).send({ message: err.message });
@@ -40,7 +40,7 @@ exports.findAll = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-    Post.findById(req.params._id, '-__v').exec((err, post) => {
+    Post.findById(req.params.id, '-__v').exec((err, post) => {
         if (err) {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({ message: 'Post not found with id:' + req.params.id });

@@ -39,7 +39,7 @@ exports.findAll = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-    CategoryChild.findById(req.params._id, '-__v').exec((err, categoryChilds) => {
+    CategoryChild.findById(req.params.id, '-__v').exec((err, categoryChilds) => {
         if (err) {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({ message: 'CategoryChild not found with id:' + req.params.id });
