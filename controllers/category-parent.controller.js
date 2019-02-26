@@ -33,7 +33,7 @@ exports.findOne = (req, res) => {
 
 exports.findChildByParentId = (req, res) => {
     CategoryParent.findById({ _id: req.params.id }).select()
-        .populate({ path: 'CategoryChilds', populate: { path: 'Posts' } })
+        .populate({ path: 'CategoryChilds', populate: { path: 'Posts', populate: { path: 'Files' } } })
         .exec((err, categoryChilds) => {
             if (err) {
                 if (err.kind === 'ObjectId') {

@@ -20,10 +20,13 @@ module.exports = {
                     });
                     file.save().then(_file => {
                         if (_file) {
+                            result.PostUrl.push(`https://server-web-api.herokuapp.com/images/${_file.FileName}`);
                             result.FileId.push(_file._id);
+                            const postUrlList = result.PostUrl;
                             const fileList = result.FileId;
                             Post.findByIdAndUpdate({ _id: req.params.id }, {
-                                FileId: fileList
+                                FileId: fileList,
+                                PostUrl:postUrlList
                             }).exec().then();
                         }
                     }).catch(err => {

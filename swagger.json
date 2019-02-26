@@ -833,7 +833,7 @@
                     "type": "string"
                 },
                 "UploadDate": {
-                    "type": "Date"
+                    "type": "string"
                 }
             }
         },
