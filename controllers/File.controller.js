@@ -20,8 +20,8 @@ module.exports = {
                     });
                     file.save().then(_file => {
                         if (_file) {
-                            result.PostUrl.push(`https://server-web-api.herokuapp.com/images/${_file.FileName}`);
                             result.FileId.push(_file._id);
+                            result.PostUrl.push(`https://server-web-api.herokuapp.com/images/${_file.FileName}`);
                             const postUrlList = result.PostUrl;
                             const fileList = result.FileId;
                             Post.findByIdAndUpdate({ _id: req.params.id }, {
