@@ -637,7 +637,16 @@
                 }
             }
         },
-        "/image/upload": {
+        "/image/upload/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Id của của bài post",
+                    "type": "string"
+                }
+            ],
             "post": {
                 "summary": "Upload ảnh",
                 "tags": [

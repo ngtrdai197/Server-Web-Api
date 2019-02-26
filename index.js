@@ -14,7 +14,6 @@ const area = require('./routers/area.router');
 const image = require('./routers/upload.router');
 
 
-
 // end router
 const database = require('./config/mongodb.config');
 // cấu hình stragety

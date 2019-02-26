@@ -1,24 +1,37 @@
 const FILE = require("../models/File.model");
+const Post = require('../models/Post.model');
 
 module.exports = {
     create: function (req, res) {
-        console.log(req.files);
-        
-        // const file = FILE({
-        //     FileName: req.files[0].filename,
-        //     FileOriginal: req.files[0].originalname,
-        //     UploadDate: new Date().toString()
-        // });
+        // truyền id của post kèm theo url tải ảnh
+        Post.findById({ _id: req.params.id }).exec((err, result) => {
+            if (err) {
+                if (err.kind === 'ObjectId') {
+                    return res.status(404).send({ message: 'Post not found with id:' + req.params.id }); // id cua danh muc con khong ton tai
+                }
+                return res.status(500).send({ message: err.message });
 
-        // req.files.map(x => console.log(x));
-        
-        // file.save().then(() => {
-        //     res.status(200).json({ status: file.FileName});
-        // }).catch(err => {
-        //     res.status(500).json({
-        //         message: err.message
-        //     });
-        // });
+            } else {
+                // danh muc con co ton tai trong db
+                for (let index = 0; index < req.files.length; index++) {
+                    let file = new FILE({
+                        FileName: req.files[index].filename,
+                        PostId: req.params.id
+                    });
+                    file.save().then(_file => {
+                        if (_file) {
+                            result.FileId.push(_file._id);
+                            const fileList = result.FileId;
+                            Post.findByIdAndUpdate({ _id: req.params.id }, {
+                                FileId: fileList
+                            }).exec().then();
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    })
+                }
+                return res.status(200).send({ message: 'Already upload !!!' })
+            }
+        });
     }
-
 }
