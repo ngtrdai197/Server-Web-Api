@@ -4,6 +4,7 @@ const Post = require('../models/Post.model');
 module.exports = {
     create: function (req, res) {
         // truyền id của post kèm theo url tải ảnh
+        
         Post.findById({ _id: req.params.id }).exec((err, result) => {
             if (err) {
                 if (err.kind === 'ObjectId') {

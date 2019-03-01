@@ -1,30 +1,62 @@
 const Area = require('../models/Area.model');
 const Post = require('../models/Post.model');
+const CategoryChild = require('../models/CategoryChild.model');
 
 exports.searchAll = (req, res) => {
     if (req.params.postname) {
-        // const regex = new RegExp(to_slug(req.params.postname), 'gi');
-
-        // console.log(to_slug(req.params.postname));
-
         Post.find().then(result => {
-                // console.log(result);
             if (result) {
-                console.log(result);
                 const post = []
                 result.forEach(e => {
-                    if(to_slug(e.PostName).includes(to_slug(req.params.postname))){
-                    //     post.push(e);
+                    if (to_slug(e.PostName).includes(to_slug(req.params.postname))) {
+                        post.push(e);
                     }
-                    console.log(to_slug(e.PostName));
-                    
                 });
-                console.log(post);
-                
-                // return res.status(200).send({ status: true, data: result });
+                if (post.length > 0) {
+                    return res.status(200).send({ status: true, data: result });
+                } else {
+                    return res.status(200).send({ status: false });
+
+                }
             }
         }).catch(err => {
             return res.status(500).send({ message: err.message });
+        })
+    }
+
+}
+
+
+exports.searchParams = (req, res) => {
+    const area = req.query.area;
+    const categoryParent = req.query.categoryParent;
+    const categoryChild = req.query.categoryChild;
+    // && categoryParent.length > 0
+    if (area && categoryParent && categoryChild) {
+        Post.find({ AreaId: area, CategoryChildId: categoryChild }).exec((err, result) => {
+            return res.status(200).send({ data: result });
+        })
+    } else if (area && categoryParent && !categoryChild) {
+        // tìm ID CateParent trong CateChild trùng với ID CateParent trùng với query từ client gửi lên
+        // lấy được danh sách những CateChild ID thuộc CateParentID nằm ở trong bài post
+        let postsTemp = [];
+        let posts = [];
+        CategoryChild.find({ CategoryParent: categoryParent }).populate({ path: 'Posts' }).select('Posts').exec().then(data => {
+            if (data) {
+                data.map(x => {
+                    if (x.Posts.length > 0) {
+                        for (let i = 0; i < x.Posts.length; i++) {
+                            postsTemp.push(x.Posts[i]);
+                        }
+                    }
+                })
+            }
+            for (let i = 0; i < postsTemp.length; i++) {
+                if (postsTemp[i].AreaId == area) {
+                    posts.push(postsTemp[i]);
+                }
+            }
+            return res.status(200).send({ status: true, data: posts });
         })
     }
 
@@ -47,7 +79,8 @@ function to_slug(str) {
     str = str.replace(/([^0-9a-z-\s])/g, '');
 
     // Xóa khoảng trắng thay bằng ký tự -
-    str = str.replace(/(\s+)/g, '-');
+    str = str.replace(/(\s+)/g, '');
+
 
     // xóa phần dự - ở đầu
     str = str.replace(/^-+/g, '');
