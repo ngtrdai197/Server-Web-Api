@@ -837,7 +837,7 @@
                     "type": "boolean"
                 },
                 "Price": {
-                    "type": "number"
+                    "type": "string"
                 },
                 "Address": {
                     "type": "string"

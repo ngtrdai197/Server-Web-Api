@@ -7,7 +7,7 @@ const PostSchema = new Schema({
     Status: {
         type: Boolean, default: false // chưa được bán
     },
-    Price: { type: Number, required: true },
+    Price: { type: String, required: true },
     Address: { required: true, type: String },
     PostDate: { type: Date, default: Date.now },
     PhoneNumber: { type: String, required: true, },
