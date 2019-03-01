@@ -32,7 +32,7 @@ exports.create = (req, res) => {
 
 // lấy tất cả các bài đăng trong db
 exports.findAll = (req, res) => {
-    Post.find().then(posts => {
+    Post.find().sort('-PostDate').then(posts => {
         return res.status(200).send({ status: true, data: posts });
     }).catch(err => {
         return res.status(500).send({ message: err.message });
@@ -50,6 +50,18 @@ exports.findOne = (req, res) => {
         return res.status(200).send(post);
     })
 };
+
+exports.findPostByUserId = (req, res) => {
+    Post.find({ UserId: req.params.id }, '-__v').sort('-PostDate').exec((err, posts) => {
+        if (err) {
+            if (err.kind === 'ObjectId') {
+                return res.status(404).send({ message: 'Post not found with User id:' + req.params.id });
+            }
+            return res.status(500).send({ message: err.message });
+        }
+        return res.status(200).send(posts);
+    })
+}
 
 exports.update = (req, res) => {
     Post.findByIdAndUpdate(req.params.id, req.body, { new: true }).exec((err, post) => {

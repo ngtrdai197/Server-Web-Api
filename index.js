@@ -10,6 +10,7 @@ const mailer = require('./routers/nodemailer.router');
 const post = require('./routers/post.router');
 const categoryparent = require('./routers/category-parent.router');
 const categorychild = require('./routers/category-child.router');
+const search = require('./routers/search.router');
 const area = require('./routers/area.router');
 const image = require('./routers/upload.router');
 
@@ -40,6 +41,7 @@ app.use('/user', user);
 app.use('/post', post);
 app.use('/categoryparent', categoryparent);
 app.use('/categorychild', categorychild);
+app.use('/search', search);
 app.use('/area', area);
 app.use('/image', image);
 

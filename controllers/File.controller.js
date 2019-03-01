@@ -30,7 +30,7 @@ module.exports = {
                             }).exec().then();
                         }
                     }).catch(err => {
-                        console.log(err);
+                        throw err;
                     })
                 }
                 return res.status(200).send({ message: 'Already upload !!!' })

@@ -12,7 +12,7 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    CategoryParent.find().then(categoryParents => {
+    CategoryParent.find().sort('-CategoryParentName').then(categoryParents => {
         return res.status(200).send({ status: true, data: categoryParents });
     }).catch(err => {
         return res.status(500).send({ message: err.message });
@@ -33,7 +33,7 @@ exports.findOne = (req, res) => {
 
 exports.findChildByParentId = (req, res) => {
     CategoryParent.findById({ _id: req.params.id }).select()
-        .populate({ path: 'CategoryChilds', populate: { path: 'Posts', populate: { path: 'Files' } } })
+        .populate({ path: 'CategoryChilds', populate: { path: 'Posts', options: { sort: '-PostDate' } } })
         .exec((err, categoryChilds) => {
             if (err) {
                 if (err.kind === 'ObjectId') {

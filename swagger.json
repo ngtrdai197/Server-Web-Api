@@ -251,6 +251,34 @@
                 }
             }
         },
+        "/post/api/user/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Id của user muốn tìm kiếm bài đăng theo User Id đó",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Lấy thông tin của tất cả bài đăng theo id của user truyền vào",
+                "responses": {
+                    "200": {
+                        "description": "Post is found",
+                        "schema": {
+                            "$ref": "#/definitions/Post"
+                        }
+                    },
+                    "404": {
+                        "description": "Post not found with id ..."
+                    }
+                }
+            }
+        },
         "/post/api/update/{id}": {
             "parameters": [
                 {

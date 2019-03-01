@@ -34,6 +34,7 @@ exports.findOne = (req, res) => {
     })
 };
 
+
 exports.findAll = (req, res) => {
     User.find().then(users => {
         res.status(200).send(users);
