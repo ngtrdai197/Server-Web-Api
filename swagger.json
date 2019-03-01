@@ -369,6 +369,50 @@
                 }
             }
         },
+        "/search/api/{postname}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "postname là tên của bài đăng muốn tìm kiếm",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "summary": "Tìm kiếm các bài đăng theo 'postname' được truyền vào",
+                "tags": [
+                    "Posts"
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/search/query?area={Id của khu vực} && categoryParent={Id của danh mục cha} &&categoryChild={Id của danh mục con}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "id là Id của các tham số truyền vào",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "summary": "Tìm kiếm theo những danh mục cha, con, khu vực thì truyền vào. Nếu chỉ tìm theo khu vực thì chỉ truyền area, nếu tìm theo khu vực và danh mục cha thì truyền area và categoryParent, ngược lại tìm theo tất cả thì truyền vào cả 3 tham số",
+                "tags": [
+                    "Posts"
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
         "/categorychild/api": {
             "get": {
                 "tags": [

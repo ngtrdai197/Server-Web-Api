@@ -36,7 +36,12 @@ exports.searchParams = (req, res) => {
         Post.find({ AreaId: area, CategoryChildId: categoryChild }).exec((err, result) => {
             return res.status(200).send({ data: result });
         })
-    } else if (area && categoryParent && !categoryChild) {
+    } else if (area && !categoryParent && !categoryChild) {
+        Post.find({ AreaId: area }).exec((err, result) => {
+            return res.status(200).send({ data: result });
+        })
+    }
+    else if (area && categoryParent && !categoryChild) {
         // tìm ID CateParent trong CateChild trùng với ID CateParent trùng với query từ client gửi lên
         // lấy được danh sách những CateChild ID thuộc CateParentID nằm ở trong bài post
         let postsTemp = [];
