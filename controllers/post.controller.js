@@ -76,13 +76,31 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
+    // Post.findByIdAndRemove(req.params.id).exec((err, post) => {
+
     Post.findByIdAndRemove(req.params.id).exec((err, post) => {
         if (err) {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({ message: 'Post not found with id:' + req.params.id });
             }
             return res.status(500).send({ message: err.message });
+        } else {
+            CategoryChild.find({ _id: post.CategoryChildId }).exec((err, cate_child) => {
+                if (err) {
+                    if (err.kind === 'ObjectId') {
+                        return res.status(404).send({ message: 'CategoryChild not found with id:' + post.CategoryChildId });
+                    }
+                }
+                else {
+                    const index = cate_child[0].Posts.indexOf(req.params.id);
+                    cate_child[0].Posts.splice(index, 1);
+                    CategoryChild.findByIdAndUpdate({ _id: post.CategoryChildId }, {
+                        Posts: cate_child[0].Posts
+                    }).exec().then();
+                    return res.status(200).send({ status: true });
+
+                }
+            })
         }
-        return res.status(200).send({ status: true });
     })
 };
