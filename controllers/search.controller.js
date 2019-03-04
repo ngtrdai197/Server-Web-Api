@@ -4,16 +4,18 @@ const CategoryChild = require('../models/CategoryChild.model');
 
 exports.searchAll = (req, res) => {
     if (req.params.postname) {
+        console.log(req.params.postname);
+        
         Post.find().then(result => {
             if (result) {
-                const post = []
+                const posts = []
                 result.forEach(e => {
                     if (to_slug(e.PostName).includes(to_slug(req.params.postname))) {
-                        post.push(e);
+                        posts.push(e);
                     }
                 });
                 if (post.length > 0) {
-                    return res.status(200).send({ status: true, data: result });
+                    return res.status(200).send({ status: true, data: posts });
                 } else {
                     return res.status(200).send({ status: false });
 
