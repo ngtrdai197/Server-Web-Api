@@ -14,7 +14,7 @@ exports.searchAll = (req, res) => {
                         posts.push(e);
                     }
                 });
-                if (post.length > 0) {
+                if (posts.length > 0) {
                     return res.status(200).send({ status: true, data: posts });
                 } else {
                     return res.status(200).send({ status: false });
