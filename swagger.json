@@ -372,7 +372,7 @@
         "/search/api/{postname}": {
             "parameters": [
                 {
-                    "name": "id",
+                    "name": "postname",
                     "in": "path",
                     "required": true,
                     "description": "postname là tên của bài đăng muốn tìm kiếm",
