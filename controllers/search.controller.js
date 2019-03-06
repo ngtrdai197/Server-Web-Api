@@ -5,7 +5,7 @@ const CategoryChild = require('../models/CategoryChild.model');
 exports.searchAll = (req, res) => {
     if (req.params.postname) {
         console.log(req.params.postname);
-        
+
         Post.find().then(result => {
             if (result) {
                 const posts = []
@@ -33,38 +33,74 @@ exports.searchParams = (req, res) => {
     const area = req.query.area;
     const categoryParent = req.query.categoryParent;
     const categoryChild = req.query.categoryChild;
+
     // && categoryParent.length > 0
     if (area && categoryParent && categoryChild) {
-        Post.find({ AreaId: area, CategoryChildId: categoryChild }).exec((err, result) => {
+        // nếu khu vực khác toàn quốc thì tìm bài post theo khu vực
+        if (area !== '5c734abd6e3a6a3f348443ec') {
+            Post.find({ AreaId: area, CategoryChildId: categoryChild }).exec((err, result) => {
+                return res.status(200).send({ data: result });
+            })
+        }
+        // nếu khu vực là toàn quốc thì lấy tất cả bài đăng theo danh mục con
+        Post.find({ CategoryChildId: categoryChild }).exec((err, result) => {
             return res.status(200).send({ data: result });
         })
+
     } else if (area && !categoryParent && !categoryChild) {
-        Post.find({ AreaId: area }).exec((err, result) => {
-            return res.status(200).send({ data: result });
-        })
+        if (area !== '5c734abd6e3a6a3f348443ec') {
+            Post.find({ AreaId: area }).exec((err, result) => {
+                return res.status(200).send({ data: result });
+            })
+        } else {
+            Post.find().exec((err, result) => {
+                return res.status(200).send({ data: result });
+            })
+        }
     }
     else if (area && categoryParent && !categoryChild) {
-        // tìm ID CateParent trong CateChild trùng với ID CateParent trùng với query từ client gửi lên
-        // lấy được danh sách những CateChild ID thuộc CateParentID nằm ở trong bài post
-        let postsTemp = [];
-        let posts = [];
-        CategoryChild.find({ CategoryParent: categoryParent }).populate({ path: 'Posts' }).select('Posts').exec().then(data => {
-            if (data) {
-                data.map(x => {
-                    if (x.Posts.length > 0) {
-                        for (let i = 0; i < x.Posts.length; i++) {
-                            postsTemp.push(x.Posts[i]);
+        if (area !== '5c734abd6e3a6a3f348443ec') {
+            // tìm ID CateParent trong CateChild trùng với ID CateParent trùng với query từ client gửi lên
+            // lấy được danh sách những CateChild ID thuộc CateParentID nằm ở trong bài post
+            let postsTemp = [];
+            let posts = [];
+            CategoryChild.find({ CategoryParent: categoryParent }).populate({ path: 'Posts' }).select('Posts').exec().then(data => {
+                if (data) {
+                    data.map(x => {
+                        if (x.Posts.length > 0) {
+                            for (let i = 0; i < x.Posts.length; i++) {
+                                postsTemp.push(x.Posts[i]);
+                            }
                         }
-                    }
-                })
-            }
-            for (let i = 0; i < postsTemp.length; i++) {
-                if (postsTemp[i].AreaId == area) {
-                    posts.push(postsTemp[i]);
+                    })
                 }
-            }
-            return res.status(200).send({ status: true, data: posts });
-        })
+                for (let i = 0; i < postsTemp.length; i++) {
+                    if (postsTemp[i].AreaId == area) {
+                        posts.push(postsTemp[i]);
+                    }
+                }
+                return res.status(200).send({ status: true, data: posts });
+            })
+        } else {
+            // nếu khu vực là toàn quốc tìm theo danh mục cha **
+            // tìm ID CateParent trong CateChild trùng với ID CateParent trùng với query từ client gửi lên
+            // lấy được danh sách những CateChild ID thuộc CateParentID nằm ở trong bài post
+            let postsTemp = [];
+            let posts = [];
+            CategoryChild.find({ CategoryParent: categoryParent }).populate({ path: 'Posts' }).select('Posts').exec().then(data => {
+                if (data) {
+                    data.map(x => {
+                        if (x.Posts.length > 0) {
+                            for (let i = 0; i < x.Posts.length; i++) {
+                                postsTemp.push(x.Posts[i]);
+                            }
+                        }
+                    })
+                }
+                return res.status(200).send({ status: true, data: postsTemp });
+            })
+        }
+
     }
 
 }

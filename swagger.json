@@ -391,7 +391,7 @@
                 }
             }
         },
-        "/search/query?area={Id của khu vực} && categoryParent={Id của danh mục cha} &&categoryChild={Id của danh mục con}": {
+        "/search/query?area={Id của khu vực}&categoryParent={Id của danh mục cha}&categoryChild={Id của danh mục con}": {
             "parameters": [
                 {
                     "name": "id",

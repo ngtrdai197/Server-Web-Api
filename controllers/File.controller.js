@@ -3,6 +3,7 @@ const Post = require('../models/Post.model');
 
 exports.create = (req, res) => {
     // truyền id của post kèm theo url tải ảnh
+    
     Post.findById({ _id: req.params.id }).exec((err, result) => {
         if (err) {
             if (err.kind === 'ObjectId') {
@@ -23,7 +24,7 @@ exports.create = (req, res) => {
                 file.save().then(_file => {
                     if (_file) {
                         result.FileId.push(_file._id);
-                        result.PostUrl.push(`https://server-web-api.herokuapp.com/images/${_file.FileName}`);
+                        result.PostUrl.push(`http://192.168.70.106:8088/images/${_file.FileName}`);
                         const postUrlList = result.PostUrl;
                         const fileList = result.FileId;
                         Post.findByIdAndUpdate({ _id: req.params.id }, {

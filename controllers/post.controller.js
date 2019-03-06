@@ -5,6 +5,8 @@ const Files = require('../models/File.model');
 exports.create = (req, res) => {
     // console.log(req.body);
     CategoryChild.findById({ _id: req.body.CategoryChildId }).exec((err, result) => {
+        console.log(req.body);
+        
         if (err) {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({ message: 'CategoryChildId not found with id:' + req.params.id }); // id cua danh muc con khong ton tai
