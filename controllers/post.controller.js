@@ -47,8 +47,9 @@ exports.findOne = (req, res) => {
         if (err) {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({ message: 'Post not found with id:' + req.params.id });
+            }else{
+                return res.status(500).send({ message: err.message });
             }
-            return res.status(500).send({ message: err.message });
         }else{
             return res.status(200).send(post);
         }
