@@ -24,7 +24,7 @@ exports.create = (req, res) => {
                 file.save().then(_file => {
                     if (_file) {
                         result.FileId.push(_file._id);
-                        result.PostUrl.push(`http://192.168.1.49:8088/images/${_file.FileName}`);
+                        result.PostUrl.push(`https://node-server-api.azurewebsites.net/images/${_file.FileName}`);
                         const postUrlList = result.PostUrl;
                         const fileList = result.FileId;
                         Post.findByIdAndUpdate({ _id: req.params.id }, {
