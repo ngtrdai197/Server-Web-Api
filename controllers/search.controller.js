@@ -18,7 +18,6 @@ exports.searchAll = (req, res) => {
                     return res.status(200).send({ status: true, data: posts });
                 } else {
                     return res.status(200).send({ status: false });
-
                 }
             }
         }).catch(err => {
@@ -41,11 +40,13 @@ exports.searchParams = (req, res) => {
             Post.find({ AreaId: area, CategoryChildId: categoryChild }).exec((err, result) => {
                 return res.status(200).send({ data: result });
             })
+        } else {
+            // nếu khu vực là toàn quốc thì lấy tất cả bài đăng theo danh mục con
+            Post.find({ CategoryChildId: categoryChild }).exec((err, result) => {
+                return res.status(200).send({ data: result });
+            })
         }
-        // nếu khu vực là toàn quốc thì lấy tất cả bài đăng theo danh mục con
-        Post.find({ CategoryChildId: categoryChild }).exec((err, result) => {
-            return res.status(200).send({ data: result });
-        })
+
 
     } else if (area && !categoryParent && !categoryChild) {
         if (area !== '5c734abd6e3a6a3f348443ec') {

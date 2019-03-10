@@ -6,12 +6,13 @@ exports.create = (req, res) => {
     // console.log(req.body);
     CategoryChild.findById({ _id: req.body.CategoryChildId }).exec((err, result) => {
         console.log(req.body);
-        
+
         if (err) {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({ message: 'CategoryChildId not found with id:' + req.params.id }); // id cua danh muc con khong ton tai
+            } else {
+                return res.status(500).send({ message: err.message });
             }
-            return res.status(500).send({ message: err.message });
 
         } else {
             // danh muc con co ton tai trong db
@@ -48,8 +49,9 @@ exports.findOne = (req, res) => {
                 return res.status(404).send({ message: 'Post not found with id:' + req.params.id });
             }
             return res.status(500).send({ message: err.message });
+        }else{
+            return res.status(200).send(post);
         }
-        return res.status(200).send(post);
     })
 };
 
@@ -58,10 +60,12 @@ exports.findPostByUserId = (req, res) => {
         if (err) {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({ message: 'Post not found with User id:' + req.params.id });
+            }else{
+                return res.status(500).send({ message: err.message });
             }
-            return res.status(500).send({ message: err.message });
+        }else{
+            return res.status(200).send(posts);
         }
-        return res.status(200).send(posts);
     })
 }
 
@@ -70,10 +74,12 @@ exports.update = (req, res) => {
         if (err) {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({ message: 'Post not found with id:' + req.params.id });
+            }else{
+                return res.status(500).send({ message: err.message });
             }
-            return res.status(500).send({ message: err.message });
+        }else{
+            return res.status(200).send(post);
         }
-        return res.status(200).send(post);
     })
 };
 
