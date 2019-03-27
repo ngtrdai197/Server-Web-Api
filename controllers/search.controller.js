@@ -5,6 +5,19 @@ const CategoryChild = require('../models/CategoryChild.model');
 exports.searchAll = (req, res) => {
     if (req.params.postname) {
         console.log(req.params.postname);
+        // Post.find({
+        //     $text: {
+        //         $search: req.params.postname, $caseSensitive: false, $diacriticSensitive: true
+        //     }
+        // }).exec((err, result) => {
+        //     if (err) {
+        //         console.log(err);
+
+        //     } else {
+        //         return res.status(200).send(result);
+        //     }
+        // })
+
 
         Post.find().then(result => {
             if (result) {
@@ -37,35 +50,53 @@ exports.searchParams = (req, res) => {
     if (area && categoryParent && categoryChild) {
         // nếu khu vực khác toàn quốc thì tìm bài post theo khu vực
         if (area !== '5c734abd6e3a6a3f348443ec') {
-            Post.find({ AreaId: area, CategoryChildId: categoryChild }).exec((err, result) => {
-                return res.status(200).send({ data: result });
+            Post.find({
+                AreaId: area,
+                CategoryChildId: categoryChild
+            }).exec((err, result) => {
+                return res.status(200).send({
+                    data: result
+                });
             })
         } else {
             // nếu khu vực là toàn quốc thì lấy tất cả bài đăng theo danh mục con
-            Post.find({ CategoryChildId: categoryChild }).exec((err, result) => {
-                return res.status(200).send({ data: result });
+            Post.find({
+                CategoryChildId: categoryChild
+            }).exec((err, result) => {
+                return res.status(200).send({
+                    data: result
+                });
             })
         }
 
 
     } else if (area && !categoryParent && !categoryChild) {
         if (area !== '5c734abd6e3a6a3f348443ec') {
-            Post.find({ AreaId: area }).exec((err, result) => {
-                return res.status(200).send({ data: result });
+            Post.find({
+                AreaId: area
+            }).exec((err, result) => {
+                return res.status(200).send({
+                    data: result
+                });
             })
         } else {
             Post.find().exec((err, result) => {
-                return res.status(200).send({ data: result });
+                return res.status(200).send({
+                    data: result
+                });
             })
         }
-    }
-    else if (area && categoryParent && !categoryChild) {
+    } else if (area && categoryParent && !categoryChild) {
         if (area !== '5c734abd6e3a6a3f348443ec') {
             // tìm ID CateParent trong CateChild trùng với ID CateParent trùng với query từ client gửi lên
             // lấy được danh sách những CateChild ID thuộc CateParentID nằm ở trong bài post
             let postsTemp = [];
             let posts = [];
-            CategoryChild.find({ CategoryParent: categoryParent }).populate({ path: 'Posts' }).select('Posts').exec().then(data => {
+            CategoryChild.find({
+                CategoryParent: categoryParent
+            }).populate({
+                path: 'Posts'
+            }).select('Posts').exec().then(data => {
                 if (data) {
                     data.map(x => {
                         if (x.Posts.length > 0) {
@@ -80,7 +111,10 @@ exports.searchParams = (req, res) => {
                         posts.push(postsTemp[i]);
                     }
                 }
-                return res.status(200).send({ status: true, data: posts });
+                return res.status(200).send({
+                    status: true,
+                    data: posts
+                });
             })
         } else {
             // nếu khu vực là toàn quốc tìm theo danh mục cha **
@@ -88,7 +122,11 @@ exports.searchParams = (req, res) => {
             // lấy được danh sách những CateChild ID thuộc CateParentID nằm ở trong bài post
             let postsTemp = [];
             let posts = [];
-            CategoryChild.find({ CategoryParent: categoryParent }).populate({ path: 'Posts' }).select('Posts').exec().then(data => {
+            CategoryChild.find({
+                CategoryParent: categoryParent
+            }).populate({
+                path: 'Posts'
+            }).select('Posts').exec().then(data => {
                 if (data) {
                     data.map(x => {
                         if (x.Posts.length > 0) {
@@ -98,7 +136,10 @@ exports.searchParams = (req, res) => {
                         }
                     })
                 }
-                return res.status(200).send({ status: true, data: postsTemp });
+                return res.status(200).send({
+                    status: true,
+                    data: postsTemp
+                });
             })
         }
 
