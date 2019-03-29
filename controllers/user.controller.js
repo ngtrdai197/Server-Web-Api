@@ -96,7 +96,7 @@ exports.upload_image = (req, res) => {
         } else {
             // user ton tai trong db
             console.log(req.files);;
-            const imgUrl = `https://node-server-api.azurewebsites.net/images/${req.files[0].filename}`;
+            const imgUrl = `https://node-server-api.azurewebsites.net/images/users/${req.files[0].filename}`;
             User.findByIdAndUpdate({
                 _id: req.params.id
             }, {
