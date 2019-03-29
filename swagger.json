@@ -9,9 +9,8 @@
             "url": "https://opensource.org/licenses/MIT"
         }
     },
-    "host": "server-web-api.herokuapp.com",
-    "tags": [
-        {
+    "host": "node-server-api.azurewebsites.net",
+    "tags": [{
             "name": "Users",
             "description": "API for users in the system"
         },
@@ -53,16 +52,14 @@
                 ],
                 "summary": "Đăng nhập vào hệ thông",
                 "description": "Người dùng đăng nhập vào hệ thống",
-                "parameters": [
-                    {
-                        "name": "user",
-                        "in": "body",
-                        "description": "Dữ liệu cần truyền vào",
-                        "schema": {
-                            "$ref": "#/definitions/Login"
-                        }
+                "parameters": [{
+                    "name": "user",
+                    "in": "body",
+                    "description": "Dữ liệu cần truyền vào",
+                    "schema": {
+                        "$ref": "#/definitions/Login"
                     }
-                ],
+                }],
                 "produces": [
                     "application/json"
                 ],
@@ -80,16 +77,14 @@
                 ],
                 "summary": "Đăng ký 1 user",
                 "description": "Create new user in system",
-                "parameters": [
-                    {
-                        "name": "user",
-                        "in": "body",
-                        "description": "User that we want to create",
-                        "schema": {
-                            "$ref": "#/definitions/User"
-                        }
+                "parameters": [{
+                    "name": "user",
+                    "in": "body",
+                    "description": "User that we want to create",
+                    "schema": {
+                        "$ref": "#/definitions/User"
                     }
-                ],
+                }],
                 "produces": [
                     "application/json"
                 ],
@@ -120,15 +115,13 @@
             }
         },
         "/user/api/{id}": {
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "Id của user muốn tìm kiếm",
-                    "type": "string"
-                }
-            ],
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "Id của user muốn tìm kiếm",
+                "type": "string"
+            }],
             "get": {
                 "tags": [
                     "Users"
@@ -148,30 +141,27 @@
             }
         },
         "/user/api/update/{id}": {
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "Id của danh mục con muốn cập nhật",
-                    "type": "string"
-                }
-            ],
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "Id của danh mục con muốn cập nhật",
+                "type": "string"
+            }],
             "put": {
                 "summary": "Cập nhật thông tin user theo id truyền vào",
                 "tags": [
                     "Users"
                 ],
-                "parameters": [
-                    {
-                        "name": "user",
-                        "in": "body",
-                        "description": "Những thông tin muốn cập nhật lại",
-                        "schema": {
-                            "$ref": "#/definitions/User"
-                        }
+                "parameters": [{
+                    "name": "user",
+                    "in": "body",
+                    "description": "Những thông tin muốn cập nhật lại",
+                    "schema": {
+                        "$ref": "#/definitions/User"
                     }
-                ],
+                }],
+
                 "responses": {
                     "200": {
                         "description": "User is updated",
@@ -185,16 +175,49 @@
                 }
             }
         },
-        "/user/api/delete/{id}": {
-            "parameters": [
-                {
+        "/user/upload/{id}": {
+            "consumes": [
+                "multipart/form-data",
+                "application/x-www-form-urlencoded"
+            ],
+            "parameters": [{
                     "name": "id",
                     "in": "path",
                     "required": true,
-                    "description": "Id của danh mục con muốn cập nhật",
+                    "description": "Id của user muốn cập nhật",
                     "type": "string"
+                },
+                {
+                    "name": "file",
+                    "in": "formData",
+                    "type": "file",
+                    "description": "Image information",
+                    "required": true
                 }
             ],
+            "post": {
+                "summary": "Cập nhật ảnh đại diện của user theo id truyền vào",
+                "tags": [
+                    "Users"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Already upload !!!"
+                    },
+                    "404": {
+                        "description": "User not found with id ... to update"
+                    }
+                }
+            }
+        },
+        "/user/api/delete/{id}": {
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "Id của danh mục con muốn cập nhật",
+                "type": "string"
+            }],
             "delete": {
                 "summary": "Xóa user theo id truyền vào",
                 "tags": [
@@ -224,15 +247,13 @@
             }
         },
         "/post/api/{id}": {
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "Id của danh mục con muốn tìm kiếm",
-                    "type": "string"
-                }
-            ],
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "Id của danh mục con muốn tìm kiếm",
+                "type": "string"
+            }],
             "get": {
                 "tags": [
                     "Posts"
@@ -252,15 +273,13 @@
             }
         },
         "/post/api/user/{id}": {
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "Id của user muốn tìm kiếm bài đăng theo User Id đó",
-                    "type": "string"
-                }
-            ],
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "Id của user muốn tìm kiếm bài đăng theo User Id đó",
+                "type": "string"
+            }],
             "get": {
                 "tags": [
                     "Posts"
@@ -280,30 +299,26 @@
             }
         },
         "/post/api/update/{id}": {
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "Id của danh mục con muốn tìm kiếm",
-                    "type": "string"
-                }
-            ],
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "Id của danh mục con muốn tìm kiếm",
+                "type": "string"
+            }],
             "put": {
                 "summary": "Cập nhật thông tin danh mục con theo id truyền vào",
                 "tags": [
                     "Posts"
                 ],
-                "parameters": [
-                    {
-                        "name": "post",
-                        "in": "body",
-                        "description": "Những thông tin muốn cập nhật lại",
-                        "schema": {
-                            "$ref": "#/definitions/Post"
-                        }
+                "parameters": [{
+                    "name": "post",
+                    "in": "body",
+                    "description": "Những thông tin muốn cập nhật lại",
+                    "schema": {
+                        "$ref": "#/definitions/Post"
                     }
-                ],
+                }],
                 "responses": {
                     "200": {
                         "description": "Post is updated",
@@ -324,16 +339,14 @@
                 ],
                 "summary": "Đăng ký 1 bài đăng",
                 "description": "Create new post in system",
-                "parameters": [
-                    {
-                        "name": "post",
-                        "in": "body",
-                        "description": "Post that we want to create",
-                        "schema": {
-                            "$ref": "#/definitions/Post"
-                        }
+                "parameters": [{
+                    "name": "post",
+                    "in": "body",
+                    "description": "Post that we want to create",
+                    "schema": {
+                        "$ref": "#/definitions/Post"
                     }
-                ],
+                }],
                 "produces": [
                     "application/json"
                 ],
@@ -348,15 +361,13 @@
             }
         },
         "/post/api/delete/{id}": {
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "Id của bài đăng muốn tìm kiếm",
-                    "type": "string"
-                }
-            ],
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "Id của bài đăng muốn tìm kiếm",
+                "type": "string"
+            }],
             "delete": {
                 "summary": "Xóa Post theo id truyền vào",
                 "tags": [
@@ -370,15 +381,13 @@
             }
         },
         "/search/api/{postname}": {
-            "parameters": [
-                {
-                    "name": "postname",
-                    "in": "path",
-                    "required": true,
-                    "description": "postname là tên của bài đăng muốn tìm kiếm",
-                    "type": "string"
-                }
-            ],
+            "parameters": [{
+                "name": "postname",
+                "in": "path",
+                "required": true,
+                "description": "postname là tên của bài đăng muốn tìm kiếm",
+                "type": "string"
+            }],
             "get": {
                 "summary": "Tìm kiếm các bài đăng theo 'postname' được truyền vào",
                 "tags": [
@@ -392,15 +401,13 @@
             }
         },
         "/search/query?area={Id của khu vực}&categoryParent={Id của danh mục cha}&categoryChild={Id của danh mục con}": {
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "id là Id của các tham số truyền vào",
-                    "type": "string"
-                }
-            ],
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "id là Id của các tham số truyền vào",
+                "type": "string"
+            }],
             "get": {
                 "summary": "Tìm kiếm theo những danh mục cha, con, khu vực thì truyền vào. Nếu chỉ tìm theo khu vực thì chỉ truyền area, nếu tìm theo khu vực và danh mục cha thì truyền area và categoryParent, ngược lại tìm theo tất cả thì truyền vào cả 3 tham số",
                 "tags": [
@@ -430,15 +437,13 @@
             }
         },
         "/categorychild/api/{id}": {
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "Id của danh mục con muốn tìm kiếm",
-                    "type": "string"
-                }
-            ],
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "Id của danh mục con muốn tìm kiếm",
+                "type": "string"
+            }],
             "get": {
                 "tags": [
                     "CategoryChilds"
@@ -458,30 +463,26 @@
             }
         },
         "/categorychild/api/update/{id}": {
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "Id của danh mục con muốn tìm kiếm",
-                    "type": "string"
-                }
-            ],
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "Id của danh mục con muốn tìm kiếm",
+                "type": "string"
+            }],
             "put": {
                 "summary": "Cập nhật thông tin danh mục con theo id truyền vào",
                 "tags": [
                     "CategoryChilds"
                 ],
-                "parameters": [
-                    {
-                        "name": "CategoryChild",
-                        "in": "body",
-                        "description": "Những thông tin muốn cập nhật lại",
-                        "schema": {
-                            "$ref": "#/definitions/CategoryChild"
-                        }
+                "parameters": [{
+                    "name": "CategoryChild",
+                    "in": "body",
+                    "description": "Những thông tin muốn cập nhật lại",
+                    "schema": {
+                        "$ref": "#/definitions/CategoryChild"
                     }
-                ],
+                }],
                 "responses": {
                     "200": {
                         "description": "CategoryChild is updated",
@@ -502,16 +503,14 @@
                 ],
                 "summary": "Đăng ký 1 danh mục con",
                 "description": "Create new CategoryChild in system",
-                "parameters": [
-                    {
-                        "name": "CategoryChild",
-                        "in": "body",
-                        "description": "CategoryChild that we want to create",
-                        "schema": {
-                            "$ref": "#/definitions/CategoryChild"
-                        }
+                "parameters": [{
+                    "name": "CategoryChild",
+                    "in": "body",
+                    "description": "CategoryChild that we want to create",
+                    "schema": {
+                        "$ref": "#/definitions/CategoryChild"
                     }
-                ],
+                }],
                 "produces": [
                     "application/json"
                 ],
@@ -526,15 +525,13 @@
             }
         },
         "/categorychild/api/delete/{id}": {
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "Id của danh mục con muốn tìm kiếm",
-                    "type": "string"
-                }
-            ],
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "Id của danh mục con muốn tìm kiếm",
+                "type": "string"
+            }],
             "delete": {
                 "summary": "Xóa CategoryChild theo id truyền vào",
                 "tags": [
@@ -564,15 +561,13 @@
             }
         },
         "/categoryparent/api/{id}": {
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "Id của danh mục cha muốn tìm kiếm",
-                    "type": "string"
-                }
-            ],
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "Id của danh mục cha muốn tìm kiếm",
+                "type": "string"
+            }],
             "get": {
                 "tags": [
                     "CategoryParents"
@@ -592,15 +587,13 @@
             }
         },
         "/categoryparent/api/query/{id}": {
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "Id của danh mục cha muốn tìm kiếm",
-                    "type": "string"
-                }
-            ],
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "Id của danh mục cha muốn tìm kiếm",
+                "type": "string"
+            }],
             "get": {
                 "tags": [
                     "CategoryParents"
@@ -620,30 +613,26 @@
             }
         },
         "/categoryparent/api/update/{id}": {
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "Id của danh mục cha muốn tìm kiếm",
-                    "type": "string"
-                }
-            ],
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "Id của danh mục cha muốn tìm kiếm",
+                "type": "string"
+            }],
             "put": {
                 "summary": "Cập nhật thông tin danh mục cha theo id truyền vào",
                 "tags": [
                     "CategoryParents"
                 ],
-                "parameters": [
-                    {
-                        "name": "CategoryParent",
-                        "in": "body",
-                        "description": "Những thông tin muốn cập nhật lại",
-                        "schema": {
-                            "$ref": "#/definitions/CategoryParent"
-                        }
+                "parameters": [{
+                    "name": "CategoryParent",
+                    "in": "body",
+                    "description": "Những thông tin muốn cập nhật lại",
+                    "schema": {
+                        "$ref": "#/definitions/CategoryParent"
                     }
-                ],
+                }],
                 "responses": {
                     "200": {
                         "description": "CategoryParent is updated",
@@ -664,16 +653,14 @@
                 ],
                 "summary": "Đăng ký 1 danh mục cha",
                 "description": "Create new CategoryParent in system",
-                "parameters": [
-                    {
-                        "name": "CategoryParent",
-                        "in": "body",
-                        "description": "CategoryParent that we want to create",
-                        "schema": {
-                            "$ref": "#/definitions/CategoryParent"
-                        }
+                "parameters": [{
+                    "name": "CategoryParent",
+                    "in": "body",
+                    "description": "CategoryParent that we want to create",
+                    "schema": {
+                        "$ref": "#/definitions/CategoryParent"
                     }
-                ],
+                }],
                 "produces": [
                     "application/json"
                 ],
@@ -688,15 +675,13 @@
             }
         },
         "/categoryparent/api/delete/{id}": {
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "Id của danh mục cha muốn tìm kiếm",
-                    "type": "string"
-                }
-            ],
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "Id của danh mục cha muốn tìm kiếm",
+                "type": "string"
+            }],
             "delete": {
                 "summary": "Xóa CategoryParent theo id truyền vào",
                 "tags": [
@@ -710,15 +695,13 @@
             }
         },
         "/image/upload/{id}": {
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "Id của của bài post",
-                    "type": "string"
-                }
-            ],
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "Id của của bài post",
+                "type": "string"
+            }],
             "post": {
                 "summary": "Upload ảnh",
                 "tags": [
@@ -751,15 +734,13 @@
             }
         },
         "/area/api/{id}": {
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "Id của khu vực muốn tìm kiếm",
-                    "type": "string"
-                }
-            ],
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "Id của khu vực muốn tìm kiếm",
+                "type": "string"
+            }],
             "get": {
                 "summary": "Lấy danh sách khu vực muốn tìm kiếm theo id",
                 "tags": [

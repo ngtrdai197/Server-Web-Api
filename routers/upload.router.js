@@ -4,6 +4,7 @@ const path = require('path');
 
 const router = express.Router();
 const file = require("../controllers/File.controller");
+const user = require("../controllers/user.controller");
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './public/images/');
@@ -12,16 +13,16 @@ const storage = multer.diskStorage({
         cb(null, Date.now() + '-' + file.originalname);
     }
 });
-const upload = multer({ 
+const upload = multer({
     storage: storage,
     fileFilter: function (req, file, callback) {
         var ext = path.extname(file.originalname);
-        if(ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+        if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
             return callback(new Error('Only images are allowed'))
         }
         callback(null, true)
     },
-    limits:{
+    limits: {
         fileSize: 1024 * 1024
     }
 });

@@ -8,7 +8,7 @@ const UserSchema = new Schema({
     FullName: { type: String, required: true, trim: true },
     Url: { type: String, trim: true },
     Address: { type: String },
-    Posts: [{ type: Schema.Types.ObjectId, ref: 'Posts', required: true }]
+    // Posts: [{ type: Schema.Types.ObjectId, ref: 'Posts', required: true }]
 
 });
 module.exports = mongoose.model('Users', UserSchema);
