@@ -86,3 +86,13 @@ exports.findAll = (req, res) => {
         });
     })
 }
+
+exports.deleteFile_PostUpdate = (req, res) => {
+    FILE.find().then(files => {
+
+    }).catch(err => {
+        return res.status(500).send({
+            message: err.message
+        });
+    })
+}
