@@ -710,7 +710,7 @@
                 }
             }
         },
-        "/image/file/api/{id}":{
+        "/image/file/api/{id}": {
             "parameters": [{
                 "name": "id",
                 "in": "path",
@@ -730,13 +730,13 @@
                             "$ref": "#/definitions/File"
                         }
                     },
-                    "404":{
-                        "description":"File not found with id ..."
+                    "404": {
+                        "description": "File not found with id ..."
                     }
                 }
             }
         },
-        "/image/files/api":{
+        "/image/files/api": {
             "get": {
                 "summary": "Lấy tất cả thông tin của file ảnh",
                 "tags": [
@@ -749,8 +749,24 @@
                             "$ref": "#/definitions/File"
                         }
                     },
-                    "404":{
-                        "description":"File not found with id ..."
+                    "404": {
+                        "description": "File not found with id ..."
+                    }
+                }
+            }
+        },
+        "/image/files/delete": {
+            "post": {
+                "summary": "Xóa thông tin file thông qua url của ảnh trong bài đăng",
+                "tags": [
+                    "Files"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Status: true"
+                    },
+                    "404": {
+                        "description": "Not found with FileName ..."
                     }
                 }
             }

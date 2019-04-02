@@ -28,6 +28,7 @@ const upload = multer({
 });
 
 router.post("/upload/:id", upload.any(), file.create);
+router.post("/file/delete", file.deleteFile_PostUpdate);
 router.get("/file/api/:id", file.findOne);
 router.get("/files/api", file.findAll);
 

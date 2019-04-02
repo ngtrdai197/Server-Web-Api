@@ -88,8 +88,31 @@ exports.findAll = (req, res) => {
 }
 
 exports.deleteFile_PostUpdate = (req, res) => {
+    let _fileName = "";
     FILE.find().then(files => {
-
+        files.map(x => {
+            if (req.body.FileName.includes(x.FileName) === true) {
+                _fileName = x.FileName;
+            }
+        });
+        if (_fileName !== "") {
+            FILE.find({
+                FileName: _fileName
+            }).remove().exec((err, result) => {
+                if (err) {
+                    return res.send({
+                        message: err.message
+                    });
+                }
+                return res.status(200).send({
+                    status: true
+                });
+            });
+        } else {
+            return res.status(404).send({
+                message: "Not found file with FileName: " + req.body.FileName
+            });
+        }
     }).catch(err => {
         return res.status(500).send({
             message: err.message
