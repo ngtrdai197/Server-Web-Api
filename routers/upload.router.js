@@ -23,7 +23,7 @@ const upload = multer({
         callback(null, true)
     },
     limits: {
-        fileSize: 5120 * 2048
+        fileSize: 10000000
     }
 });
 
