@@ -45,7 +45,7 @@ exports.create = (req, res) => {
                 })
             }
             return res.status(200).send({
-                status: 200,
+                status: true,
                 message: 'Already upload !!!'
             })
         }
