@@ -15,6 +15,6 @@ const PostSchema = new Schema({
     UserId: { type: Schema.Types.ObjectId, ref: 'Users', required: true },
     AreaId: { type: Schema.Types.ObjectId, ref: 'Areas', required: true },
     CategoryChildId: { type: Schema.Types.ObjectId, ref: 'CategoryChilds', required: true },
-    FileId: [{ type: Schema.Types.ObjectId, ref: 'Files' }],
+    FileId: [{ type: Schema.Types.ObjectId, ref: 'Files' }]
 });
 module.exports = mongoose.model('Posts', PostSchema);

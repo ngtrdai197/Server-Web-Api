@@ -235,7 +235,7 @@
                 "tags": [
                     "Posts"
                 ],
-                "summary": "Lấy tất cả thông tin danh mục con trong database",
+                "summary": "Lấy tất cả thông tin bài đăng trong database",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -251,14 +251,14 @@
                 "name": "id",
                 "in": "path",
                 "required": true,
-                "description": "Id của danh mục con muốn tìm kiếm",
+                "description": "Id của bài đăng muốn tìm kiếm",
                 "type": "string"
             }],
             "get": {
                 "tags": [
                     "Posts"
                 ],
-                "summary": "Lấy thông tin của danh mục con theo id truyền vào",
+                "summary": "Lấy thông tin của bài đăng theo id truyền vào",
                 "responses": {
                     "200": {
                         "description": "Post is found",
@@ -303,11 +303,11 @@
                 "name": "id",
                 "in": "path",
                 "required": true,
-                "description": "Id của danh mục con muốn tìm kiếm",
+                "description": "Id của bài đăng muốn tìm kiếm",
                 "type": "string"
             }],
             "put": {
-                "summary": "Cập nhật thông tin danh mục con theo id truyền vào",
+                "summary": "Cập nhật thông tin của bài đăng theo id truyền vào",
                 "tags": [
                     "Posts"
                 ],
@@ -352,7 +352,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "New post is created",
+                        "description": "status: true",
                         "schema": {
                             "$ref": "#/definitions/Post"
                         }
@@ -401,13 +401,6 @@
             }
         },
         "/search/query?area={Id của khu vực}&categoryParent={Id của danh mục cha}&categoryChild={Id của danh mục con}": {
-            "parameters": [{
-                "name": "id",
-                "in": "path",
-                "required": true,
-                "description": "id là Id của các tham số truyền vào",
-                "type": "string"
-            }],
             "get": {
                 "summary": "Tìm kiếm theo những danh mục cha, con, khu vực thì truyền vào. Nếu chỉ tìm theo khu vực thì chỉ truyền area, nếu tìm theo khu vực và danh mục cha thì truyền area và categoryParent, ngược lại tìm theo tất cả thì truyền vào cả 3 tham số",
                 "tags": [
@@ -415,7 +408,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "Trả về danh sách bài đăng tìm được"
                     }
                 }
             }
@@ -713,6 +706,51 @@
                         "schema": {
                             "$ref": "#/definitions/File"
                         }
+                    }
+                }
+            }
+        },
+        "/image/file/api/{id}":{
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "Id của của file muốn tìm kiếm",
+                "type": "string"
+            }],
+            "get": {
+                "summary": "Lấy thông tin của file ảnh",
+                "tags": [
+                    "Files"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Status: 200",
+                        "schema": {
+                            "$ref": "#/definitions/File"
+                        }
+                    },
+                    "404":{
+                        "description":"File not found with id ..."
+                    }
+                }
+            }
+        },
+        "/image/files/api":{
+            "get": {
+                "summary": "Lấy tất cả thông tin của file ảnh",
+                "tags": [
+                    "Files"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Status: 200",
+                        "schema": {
+                            "$ref": "#/definitions/File"
+                        }
+                    },
+                    "404":{
+                        "description":"File not found with id ..."
                     }
                 }
             }
