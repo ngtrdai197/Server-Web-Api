@@ -2,18 +2,35 @@ const User = require('../models/user.model');
 
 exports.create = (req, res) => {
     const user = new User(req.body);
-    user.save().then(_user => {
-        if (_user) {
-            res.status(200).send({
-                status: true,
-                data: _user
+    User.find({
+        PhoneNumber: user.PhoneNumber
+    }).then(result => {
+        if (result.length <= 0) {
+            user.save().then(_user => {
+                if (_user) {
+                    res.status(200).send({
+                        status: true,
+                        data: _user
+                    });
+                }
+            }).catch(err => {
+                return res.status(500).send({
+                    message: err.message
+                });
+            })
+        } else if (user.Password.length < 8) {
+            return res.status(400).send({
+                status: false,
+                message: 'Password quá ngắn (phải lớn hơn 8 kí tự). Kiểm tra lại !!!'
+            });
+        } else {
+            return res.status(400).send({
+                status: false,
+                message: 'PhoneNumber đã tồn tại. Kiểm tra lại !!!'
             });
         }
-    }).catch(err => {
-        res.status(500).send({
-            message: err.message
-        });
     })
+
 };
 
 exports.delete = (req, res) => {
@@ -79,7 +96,7 @@ exports.update = (req, res) => {
 
 exports.upload_image = (req, res) => {
     console.log(req.params.id);
-    
+
     User.findById({
         _id: req.params.id
     }).exec((err, result) => {
