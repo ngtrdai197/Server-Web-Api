@@ -1,5 +1,6 @@
 const FILE = require("../models/File.model");
 const Post = require('../models/Post.model');
+const sharp = require('sharp');
 
 exports.create = (req, res) => {
     // truyền id của post kèm theo url tải ảnh
@@ -20,29 +21,34 @@ exports.create = (req, res) => {
         } else {
             // danh muc con co ton tai trong db
             console.log(req.files);
+            console.log(req.files.length);
 
             for (let index = 0; index < req.files.length; index++) {
-                let file = new FILE({
-                    FileName: req.files[index].filename,
-                    PostId: req.params.id
-                });
-
-                file.save().then(_file => {
-                    if (_file) {
-                        result.FileId.push(_file._id);
-                        result.PostUrl.push(`https://node-server-api.azurewebsites.net/images/${_file.FileName}`);
-                        const postUrlList = result.PostUrl;
-                        const fileList = result.FileId;
-                        Post.findByIdAndUpdate({
-                            _id: req.params.id
-                        }, {
-                            FileId: fileList,
-                            PostUrl: postUrlList
-                        }).exec().then();
+                sharp(req.files[index].path).resize(300, 300).toFile('public/images/risze_image_300x300-' + req.files[index].filename, (err) => {
+                    if (!err) {
+                        let file = new FILE({
+                            FileName: req.files[index].filename,
+                            PostId: req.params.id
+                        });
+                        file.save().then(_file => {
+                            if (_file) {
+                                result.FileId.push(_file._id);
+                                result.PostUrl.push(`http://172.20.10.3:8088/images/risze_image_300x300-${_file.FileName}`);
+                                const postUrlList = result.PostUrl;
+                                const fileList = result.FileId;
+                                Post.findByIdAndUpdate({
+                                    _id: req.params.id
+                                }, {
+                                        FileId: fileList,
+                                        PostUrl: postUrlList
+                                    }).exec().then();
+                            }
+                        }).catch(err => {
+                            throw err;
+                        })
                     }
-                }).catch(err => {
-                    throw err;
                 })
+
             }
             return res.status(200).send({
                 status: true,

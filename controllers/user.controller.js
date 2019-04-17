@@ -113,7 +113,7 @@ exports.upload_image = (req, res) => {
         } else {
             // user ton tai trong db
             console.log(req.files);;
-            const imgUrl = `https://node-server-api.azurewebsites.net/images/users/${req.files[0].filename}`;
+            const imgUrl = `http://172.20.10.3:8088/images/users/${req.files[0].filename}`;
             User.findByIdAndUpdate({
                 _id: req.params.id
             }, {

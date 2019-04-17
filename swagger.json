@@ -9,7 +9,7 @@
             "url": "https://opensource.org/licenses/MIT"
         }
     },
-    "host": "node-server-api.azurewebsites.net",
+    "host": "172.20.10.3:8088",
     "tags": [{
             "name": "Users",
             "description": "API for users in the system"
@@ -36,7 +36,7 @@
         }
     ],
     "schemes": [
-        "https"
+        "http"
     ],
     "consumes": [
         "application/json"

@@ -28,13 +28,20 @@ exports.searchAll = (req, res) => {
                     }
                 });
                 if (posts.length > 0) {
-                    return res.status(200).send({ status: true, data: posts });
+                    return res.status(200).send({
+                        status: true,
+                        data: posts
+                    });
                 } else {
-                    return res.status(200).send({ status: false });
+                    return res.status(200).send({
+                        status: false
+                    });
                 }
             }
         }).catch(err => {
-            return res.status(500).send({ message: err.message });
+            return res.status(500).send({
+                message: err.message
+            });
         })
     }
 
