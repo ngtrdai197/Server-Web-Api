@@ -9,7 +9,7 @@
             "url": "https://opensource.org/licenses/MIT"
         }
     },
-    "host": "172.20.10.3:8088",
+    "host": "localhost:8088",
     "tags": [{
             "name": "Users",
             "description": "API for users in the system"

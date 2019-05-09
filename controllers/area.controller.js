@@ -22,7 +22,9 @@ exports.findAll = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-    Area.findById(req.params._id, '-__v').exec((err, area) => {
+    
+    Area.findById(req.params.id, '-__v').exec((err, area) => {
+        
         if (err) {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({ message: 'Area not found with id:' + req.params.id });
