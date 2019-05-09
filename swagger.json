@@ -819,6 +819,10 @@
                 "FullName"
             ],
             "properties": {
+                "_id": {
+                    "type": "object ",
+                    "unique": true
+                },
                 "PhoneNumber": {
                     "type": "string",
                     "unique": true
@@ -827,7 +831,7 @@
                     "type": "string"
                 },
                 "Date": {
-                    "type": "Date"
+                    "type": "object"
                 },
                 "FullName": {
                     "type": "string"
@@ -862,11 +866,18 @@
                 "AreaId"
             ],
             "properties": {
+                "_id": {
+                    "type": "object ",
+                    "unique": true
+                },
+                "FileId":{
+                    "type": "array"
+                },
                 "PostName": {
                     "type": "string"
                 },
                 "PostUrl": {
-                    "type": "string"
+                    "type": "array"
                 },
                 "Status": {
                     "type": "boolean"
@@ -878,7 +889,7 @@
                     "type": "string"
                 },
                 "PostDate": {
-                    "type": "date"
+                    "type": "object"
                 },
                 "PhoneNumber": {
                     "type": "string"
@@ -887,13 +898,13 @@
                     "type": "string"
                 },
                 "UserId": {
-                    "type": "string"
+                    "type": "object"
                 },
                 "AreaId": {
-                    "type": "string"
+                    "type": "object"
                 },
                 "CategoryChildId": {
-                    "type": "string"
+                    "type": "object"
                 }
             }
         },
@@ -903,6 +914,10 @@
                 "CategoryParentId"
             ],
             "properties": {
+                "_id": {
+                    "type": "object ",
+                    "unique": true
+                },
                 "CategoryChildName": {
                     "type": "string"
                 },
@@ -910,7 +925,10 @@
                     "type": "string"
                 },
                 "CategoryParent": {
-                    "type": "string"
+                    "type": "object"
+                },
+                "Posts": {
+                    "type": "array"
                 }
             }
         },
@@ -919,6 +937,13 @@
                 "CategoryParentName"
             ],
             "properties": {
+                "_id": {
+                    "type": "object ",
+                    "unique": true
+                },
+                "CategoryChilds":{
+                    "type": "array"
+                },
                 "CategoryParentName": {
                     "type": "string"
                 },
@@ -933,14 +958,18 @@
                 "PostId"
             ],
             "properties": {
+                "_id": {
+                    "type": "object ",
+                    "unique": true
+                },
                 "FileName": {
                     "type": "string"
                 },
                 "PostId": {
-                    "type": "string"
+                    "type": "object"
                 },
                 "UploadDate": {
-                    "type": "string"
+                    "type": "object"
                 }
             }
         },
@@ -949,6 +978,10 @@
                 "AreaName"
             ],
             "properties": {
+                "_id": {
+                    "type": "object ",
+                    "unique": true
+                },
                 "AreaName": {
                     "type": "string"
                 }

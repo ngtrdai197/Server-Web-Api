@@ -6,7 +6,6 @@ const passport = require('passport');
 
 // begin router
 const user = require('./routers/user.router');
-const mailer = require('./routers/nodemailer.router');
 const post = require('./routers/post.router');
 const categoryparent = require('./routers/category-parent.router');
 const categorychild = require('./routers/category-child.router');
@@ -46,14 +45,10 @@ app.use('/search', search);
 app.use('/area', area);
 app.use('/image', image);
 
-// nodemailer
-app.use('/mail', mailer);
-
 app.get('/', (req, res) => {
     res.render('homepage');
 })
 
-// app.get('/auth', passport.authenticate('facebook'));
 const port = process.env.PORT || 8088
 app.listen(port, () => {
     console.log(`Server is running at port: ${port}`);

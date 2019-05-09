@@ -33,7 +33,7 @@ exports.create = (req, res) => {
                         file.save().then(_file => {
                             if (_file) {
                                 result.FileId.push(_file._id);
-                                result.PostUrl.push(`http://172.20.10.3:8088/images/risze_image_300x300-${_file.FileName}`);
+                                result.PostUrl.push(`http://192.168.1.138:8088/images/risze_image_300x300-${_file.FileName}`);
                                 const postUrlList = result.PostUrl;
                                 const fileList = result.FileId;
                                 Post.findByIdAndUpdate({
